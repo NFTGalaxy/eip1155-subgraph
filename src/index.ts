@@ -2,6 +2,7 @@ import {
     ethereum,
     Address,
     BigInt,
+    log
 } from '@graphprotocol/graph-ts'
 
 import {
@@ -94,7 +95,11 @@ function registerTransfer(
     }
 
     let contract = IERC1155MetadataURI.bind(event.address);
-    token.URI = contract.uri(id);
+    try{
+        token.URI = contract.uri(id);
+    }catch (e) {
+        log.debug('There are no URI in token', e);
+    }
 
     token.save()
     ev.save()
