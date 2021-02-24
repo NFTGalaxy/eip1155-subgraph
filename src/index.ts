@@ -2,7 +2,8 @@ import {
     ethereum,
     Address,
     BigInt,
-    log
+    log,
+    store
 } from '@graphprotocol/graph-ts'
 
 import {
@@ -94,11 +95,13 @@ function registerTransfer(
         ev.toBalance = balance.id
     }
 
-    let contract = IERC1155MetadataURI.bind(event.address);
-    try{
-        token.URI = contract.uri(id);
-    }catch (e) {
-        log.debug('There are no URI in token', e);
+    if (!token.URI) {
+        let contract = IERC1155MetadataURI.bind(event.address);
+        let callResult = contract.try_uri(id);
+
+        if (!callResult.reverted) {
+            token.URI = callResult.value;
+        }
     }
 
     token.save()
