@@ -94,14 +94,7 @@ function registerTransfer(
     }
 
     let contract = IERC1155MetadataURI.bind(event.address);
-    token.URI = contract.call(
-        "uri",
-        "uri(uint256):(string)",
-        [
-            ethereum.Value.fromAddress(Address.fromString(ev.from)),
-            ethereum.Value.fromUnsignedBigInt(id)
-        ]
-    ).toString();
+    token.URI = contract.uri(id);
 
     token.save()
     ev.save()
