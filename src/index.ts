@@ -13,7 +13,7 @@ import {
     Token,
     Balance,
     Transfer,
-    Approval,
+    Approval, OwnershipTransferred,
 } from '../generated/schema'
 
 import {
@@ -140,6 +140,17 @@ function registerTransfer(
             }
         }
     }
+    let ownershipTransferredId = event.block.number
+        .toString()
+        .concat('-')
+        .concat(token.id)
+    let ownershipTransferred = new OwnershipTransferred(ownershipTransferredId);
+    ownershipTransferred.newOwner = ev.to
+    ownershipTransferred.previousOwner = ev.from
+    ownershipTransferred.blockNumber = event.block.number;
+    ownershipTransferred.token = token.id;
+    ownershipTransferred.transaction = transactions.log(event).id;
+    ownershipTransferred.save();
 
     token.save()
     ev.save()

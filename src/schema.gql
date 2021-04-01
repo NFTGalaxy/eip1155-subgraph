@@ -67,3 +67,17 @@ type Sell @entity {
 	metadata:                     String!
 	transaction:                  Transaction!
 }
+
+type OwnershipTransferred @entity {
+	id:                           ID!
+	blockNumber:                  BigInt!
+	token:                        Token!
+    previousOwner:                Account!
+    newOwner:                     Account!
+    transaction:                  Transaction!
+}
+
+type ContractInfo @entity {
+	id:                                     ID!
+	latestSaleBlockNumber:                  BigInt!
+}

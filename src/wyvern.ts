@@ -1,4 +1,4 @@
-import {Account, Sell, Transaction} from "../generated/schema";
+import {Account, ContractInfo, Sell, Transaction} from "../generated/schema";
 import {log} from "@graphprotocol/graph-ts/index";
 import {OrdersMatched} from "../generated/Exchange/Exchange";
 
@@ -15,7 +15,7 @@ import {
 } from "@graphprotocol/graph-ts";
 
 export function handleOrdersMatched(event: OrdersMatched): void {
-    let sellId =  event.address.toHex()
+    let sellId = event.address.toHex()
         .concat('-')
         .concat(event.transaction.hash.toHexString())
         .concat('-')
@@ -41,13 +41,16 @@ export function handleOrdersMatched(event: OrdersMatched): void {
     sell.metadata = event.params.metadata.toHexString();
 
     let transaction = new Transaction(event.transaction.hash.toHex());
-    transaction.timestamp = new BigInt(0);
+    transaction.timestamp = event.block.timestamp;
     transaction.blockNumber = event.block.number;
     transaction.save();
 
     sell.transaction = transaction.id;
 
+    let contractSaleInfo = new ContractInfo(event.address.toHex());
+    contractSaleInfo.latestSaleBlockNumber = event.block.number;
 
+    contractSaleInfo.save();
     sell.save();
 
 }
