@@ -55,3 +55,15 @@ type Approval implements Event @entity {
 	spender:                      Account!
 	value:                        BigInt!
 }
+
+type Sell @entity {
+	id:                           ID!
+	blockNumber:                  BigInt!
+	buyHash:                      String!
+	sellHash:                     String!
+	maker:                        Account!
+	taker:                        Account!
+	price:                        BigInt!
+	metadata:                     String!
+	transaction:                  Transaction!
+}

@@ -17,7 +17,11 @@
     "build:codegen": "graph codegen subgraph.yaml",
     "build:compile": "graph build subgraph.yaml",
     "build:*": "yarn build:schema && yarn build:codegen && yarn build:compile",
-    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraph"
+    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraph",
+    "deploy:dev": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraphdev",
+    "deploy:hero": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraphhero",
+    "deploy:rinkebuy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/rinkebuyierc1155",
+    "deploy-local": "graph deploy eip1155-subgraph --debug --ipfs http://192.168.31.229:5001 --node http://192.168.31.229:8020/"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^3.3.0"
