@@ -28,6 +28,7 @@ export function handleOrdersMatched(event: OrdersMatched): void {
     sell.blockNumber = event.block.number;
     sell.buyHash = event.params.buyHash.toHexString();
     sell.sellHash = event.params.sellHash.toHexString();
+    sell.contract = event.address.toHex();
 
     let maker = new Account(event.params.maker.toHex());
     maker.save();

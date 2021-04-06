@@ -58,6 +58,7 @@ type Approval implements Event @entity {
 
 type Sell @entity {
 	id:                           ID!
+	contract:                     String!
 	blockNumber:                  BigInt!
 	buyHash:                      String!
 	sellHash:                     String!

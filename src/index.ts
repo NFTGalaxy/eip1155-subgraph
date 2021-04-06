@@ -34,9 +34,16 @@ import {
     integers,
     transactions,
 } from '@amxx/graphprotocol-utils'
-import {NFTSold} from "../generated/SaleContract/SaleContract";
+
+
 // i don`t know but this contract return "string :  Error: Returned error: stack limit reached 1024 (1023)" for every URI call
-const INVALID_CONTRACTS: string[] = ['0xd2d2a84f0eb587f70e181a0c4b252c2c053f80cb']
+const INVALID_CONTRACTS: string[] = [
+    '0xd2d2a84f0eb587f70e181a0c4b252c2c053f80cb', // for mainnet
+    '0x3799ecbc9ea258edaff8d975163bf56d345c65c2', // for rinkeby
+    '0xca3f90ddb9cb1323c9d3a08849cc6511e2ddbe4a', // for rinkeby
+    '0x2d71be87d0365d61da56b0b840040f636288941d' // for rinkeby
+
+]
 
 function replaceAll(input: string, search: string[], replace: string): string {
     let result = '';
@@ -126,11 +133,7 @@ function registerTransfer(
 
     log.debug('Contract address: {}', [event.address.toHexString()])
 
-    if (event.address.toHexString() != '0xd2d2a84f0eb587f70e181a0c4b252c2c053f80cb' &&
-        event.address.toHexString() != '0x3799ecbc9ea258edaff8d975163bf56d345c65c2'
-    ) {
-
-
+    if (!INVALID_CONTRACTS.includes('0xd2d2a84f0eb587f70e181a0c4b252c2c053f80cb')) {
         if (!token.URI || replaceAll(token.URI, ['&', '"', '\''], "").length === 0) {
             let contract = IERC1155MetadataURI.bind(event.address);
             let callResult = contract.try_uri(id);
