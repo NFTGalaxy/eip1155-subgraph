@@ -6,10 +6,10 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: IERC1155
-    network: rinkeby
+    network: mumbai
     source:
       abi: IERC1155
-      startBlock: 8260600
+      startBlock: 13006720
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -33,10 +33,10 @@ dataSources:
       file: ./src/index.ts
   - kind: ethereum/contract
     name: Exchange
-    network: rinkeby
+    network: mumbai
     source:
       abi: Exchange
-      startBlock: 8260600
+      startBlock: 13006720
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -51,3 +51,23 @@ dataSources:
         - event: OrdersMatched(bytes32,bytes32,indexed address,indexed address,uint256,indexed bytes32)
           handler: handleOrdersMatched
       file: ./src/wyvern.ts
+  - kind: ethereum/contract
+    name: CollectionFactory
+    network: mumbai
+    source:
+      abi: Collections
+      startBlock: 13006720
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - CreatedCollection
+        - Collections
+      abis:
+        - name: Collections
+          file: ./abi/Collections.json
+      eventHandlers:
+        - event: CollectionCreated(indexed address,indexed address)
+          handler: handleCollectionCreated
+      file: ./src/collection.ts

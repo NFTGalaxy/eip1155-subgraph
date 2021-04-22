@@ -82,3 +82,13 @@ type ContractInfo @entity {
 	id:                                     ID!
 	latestSaleBlockNumber:                  BigInt!
 }
+
+type CreatedCollection @entity {
+	id:                           ID!
+	contract:                     String!
+	blockNumber:                  BigInt!
+	creator:                      Account!
+	collectionAddress:            String!
+	transaction:                  Transaction!
+	name:                         String!
+}
