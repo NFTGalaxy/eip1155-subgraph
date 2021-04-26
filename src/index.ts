@@ -25,7 +25,7 @@ import {
 } from '../generated/IERC1155/IERC1155'
 
 import {
-    IERC1155MetadataURI
+    IERC1155MetadataURI,
 } from '../generated/IERC1155/IERC1155MetadataURI'
 
 import {

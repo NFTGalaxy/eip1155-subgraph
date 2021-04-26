@@ -20,8 +20,8 @@
     "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraph",
     "deploy:dev": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraphdev",
     "deploy:hero": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraphhero",
-    "deploy:rinkebuy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ ALEXVOROBIOV/Sub1155",
-    "deploy:mumbai": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ ALEXVOROBIOV/MumbaitCollections",
+    "deploy:rinkebuy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/Sub1155",
+    "deploy:mumbai": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/MumbaitCollections",
     "deploy-local": "graph deploy eip1155-subgraph --debug --ipfs http://192.168.31.229:5001 --node http://192.168.31.229:8020/",
     "create": "graph create --node https://mumbai-graph.matic.today/ alexvorobiov/token-subgraph",
     "deploy_mumbai": "graph deploy --node https://mumbai-graph.matic.today/ --ipfs https://ipfs.infura.io:5001/ alexvorobiov/token-subgraph"

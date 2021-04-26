@@ -91,4 +91,6 @@ type CreatedCollection @entity {
 	collectionAddress:            String!
 	transaction:                  Transaction!
 	name:                         String!
+	symbol:                       String!
+	uri:                          String!
 }

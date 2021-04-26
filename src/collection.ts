@@ -1,18 +1,12 @@
-import {Account, ContractInfo, CreatedCollection, Sell, Transaction} from "../generated/schema";
+import {Account, CreatedCollection, Transaction} from "../generated/schema";
 import {log} from "@graphprotocol/graph-ts/index";
 
 import {
-    TypedMap,
-    Entity,
-    Value,
-    ValueKind,
-    store,
-    Address,
-    Bytes,
     BigInt,
-    BigDecimal
 } from "@graphprotocol/graph-ts";
 import {CollectionCreated, Collections} from "../generated/CollectionFactory/Collections";
+import {Collection} from "../generated/CollectionFactory/Collection";
+
 
 export function handleCollectionCreated(event: CollectionCreated): void {
     log.debug('Collection {}, creator {}', [event.params.collectionAddress.toHexString(), event.params.creator.toHexString()])
@@ -28,10 +22,34 @@ export function handleCollectionCreated(event: CollectionCreated): void {
     creator.save();
     createdCollection.creator = creator.id;
 
-    // let collection = Collections.bind(event.params.collectionAddress);
+    let collection = Collection.bind(event.params.collectionAddress);
 
-    createdCollection.name = 'empty';
+    let resultName = collection.try_name();
+    log.debug('collection name: {}', [resultName.value])
 
+    if (!resultName.reverted) {
+        createdCollection.name = resultName.value;
+    } else {
+        createdCollection.name = '';
+    }
+
+    let resultSymbol = collection.try_symbol();
+    log.debug('collection name: {}', [resultSymbol.value])
+
+    if (!resultSymbol.reverted) {
+        createdCollection.symbol = resultSymbol.value;
+    } else {
+        createdCollection.symbol = '';
+    }
+
+    let resultURI = collection.try_uri(new BigInt(0));
+    log.debug('collection name: {}', [resultURI.value])
+
+    if (!resultSymbol.reverted) {
+        createdCollection.uri = resultURI.value;
+    } else {
+        createdCollection.uri = '';
+    }
 
     createdCollection.contract = event.address.toHexString();
 
