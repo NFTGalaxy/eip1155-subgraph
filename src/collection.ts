@@ -105,9 +105,16 @@ function registerTransfer(
         createdToken.blockNumber = event.block.number;
         createdToken.identifier = token.identifier;
         createdToken.creator = to.id;
+        let collectionContract = Collection.bind(event.address);
 
-        createdToken.uri = collection.uri
-            .concat(token.identifier.toString())
+        let resultURI = collectionContract.try_uri(token.identifier);
+        log.debug('collection name: {}', [resultURI.value])
+
+        if (!resultURI.reverted) {
+            createdToken.uri = resultURI.value;
+        } else {
+            createdToken.uri = '';
+        }
 
         createdToken.contract = event.address.toHexString();
         createdToken.value = value;

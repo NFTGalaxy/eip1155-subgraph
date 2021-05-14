@@ -109,3 +109,11 @@ type CreatedToken @entity {
 	contract:                     String!
 	value:                        BigInt!
 }
+
+type LaunchpadSale @entity {
+    id:                           ID!
+	blockNumber:                  BigInt!
+    cardId:                       BigInt!
+    from:                         String!
+    amount:                       BigInt!
+}

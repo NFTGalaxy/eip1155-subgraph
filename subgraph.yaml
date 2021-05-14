@@ -95,3 +95,22 @@ dataSources:
         - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleTransferSingle
       file: ./src/collection.ts
+  - kind: ethereum/contract
+    name: Store
+    network: mumbai
+    source:
+      abi: Store
+      startBlock: 13006720
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - LaunchpadSale
+      abis:
+        - name: Store
+          file: ./abi/Store.json
+      eventHandlers:
+        - event: PurchaseCard(indexed address,uint256,uint256)
+          handler: handlePurchaseCard
+      file: ./src/launchpad.ts
