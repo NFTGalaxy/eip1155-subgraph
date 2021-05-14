@@ -1,7 +1,9 @@
 import {
     Account, ContractBlockInfo,
-    CreatedCollection, CreatedToken,
-    OwnershipTransferred, Token,
+    CreatedCollection,
+    CreatedToken,
+    OwnershipTransferred,
+    Token,
     TokenRegistry,
     Transaction,
     Transfer
@@ -18,14 +20,12 @@ import {
     TransferBatch as TransferBatchEvent,
     TransferSingle as TransferSingleEvent
 } from "../generated/IERC1155/IERC1155";
+import {IERC1155MetadataURI} from "../generated/IERC1155/IERC1155MetadataURI";
 
 
 export function handleCollectionCreated(event: CollectionCreated): void {
     log.debug('Collection {}, creator {}', [event.params.collectionAddress.toHexString(), event.params.creator.toHexString()])
-    let id = event.address.toHexString()
-        .concat('-')
-        .concat(event.params.collectionAddress.toHexString());
-    let createdCollection = new CreatedCollection(id);
+    let createdCollection = new CreatedCollection(event.params.collectionAddress.toHexString());
 
     createdCollection.blockNumber = event.block.number;
     createdCollection.collectionAddress = event.params.collectionAddress.toHexString();
@@ -99,15 +99,22 @@ function registerTransfer(
         return
     }
 
-    let createdToken = new CreatedToken(token.id);
+    let collection = CreatedCollection.load(event.address.toHexString());
+    if (collection) {
+        let createdToken = new CreatedToken(token.id);
+        createdToken.blockNumber = event.block.number;
+        createdToken.identifier = token.identifier;
+        createdToken.creator = to.id;
 
-    createdToken.blockNumber = event.block.number;
-    createdToken.identifier = token.identifier;
-    createdToken.creator = to.id;
-    createdToken.uri = token.URI;
-    createdToken.contract = event.address.toHexString();
-    createdToken.save();
+        createdToken.uri = collection.uri
+            .concat(token.identifier.toString())
+
+        createdToken.contract = event.address.toHexString();
+        createdToken.value = value;
+        createdToken.save();
+    }
 }
+
 
 export function handleTransferSingle(event: TransferSingleEvent): void {
     let registry = new TokenRegistry(event.address.toHex())

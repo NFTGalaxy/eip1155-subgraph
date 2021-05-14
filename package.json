@@ -23,6 +23,7 @@
     "deploy:rinkebuy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/Sub1155",
     "deploy:mumbai": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/MumbaitCollections",
     "deploy-local": "graph deploy eip1155-subgraph --debug --ipfs http://192.168.31.229:5001 --node http://192.168.31.229:8020/",
+    "watch-local": "graph deploy eip1155-subgraph --watch --debug --ipfs http://192.168.31.229:5001 --node http://192.168.31.229:8020/",
     "create": "graph create --node https://mumbai-graph.matic.today/ alexvorobiov/token-subgraph",
     "deploy_mumbai": "graph deploy --node https://mumbai-graph.matic.today/ --ipfs https://ipfs.infura.io:5001/ alexvorobiov/token-subgraph"
   },
@@ -32,7 +33,7 @@
   "devDependencies": {
     "@amxx/graphprotocol-utils": "0.0.6-2",
     "@graphprotocol/graph-cli": "^0.19.0",
-    "@graphprotocol/graph-ts": "^0.19.0",
+    "@graphprotocol/graph-ts": "^0.20.0",
     "concat": "^1.0.3"
   }
 }

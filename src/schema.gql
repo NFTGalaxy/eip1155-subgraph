@@ -107,4 +107,5 @@ type CreatedToken @entity {
 	creator:                      Account!
 	uri:                          String!
 	contract:                     String!
+	value:                        BigInt!
 }

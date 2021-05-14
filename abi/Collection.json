@@ -547,6 +547,11 @@
       },
       {
         "internalType": "address",
+        "name": "owner_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "childChainManager",
         "type": "address"
       }
