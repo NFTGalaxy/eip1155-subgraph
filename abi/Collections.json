@@ -81,11 +81,6 @@
       },
       {
         "internalType": "string",
-        "name": "_symbol",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
         "name": "_uri",
         "type": "string"
       },

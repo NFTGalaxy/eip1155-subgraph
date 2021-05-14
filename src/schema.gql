@@ -83,6 +83,11 @@ type ContractInfo @entity {
 	latestSaleBlockNumber:                  BigInt!
 }
 
+type ContractBlockInfo @entity {
+	id:                                     ID!
+	latestBlockNumber:                      BigInt!
+}
+
 type CreatedCollection @entity {
 	id:                           ID!
 	contract:                     String!
@@ -91,6 +96,15 @@ type CreatedCollection @entity {
 	collectionAddress:            String!
 	transaction:                  Transaction!
 	name:                         String!
-	symbol:                       String!
 	uri:                          String!
+}
+
+
+type CreatedToken @entity {
+	id:                           ID!
+	blockNumber:                  BigInt!
+	identifier:                   BigInt!
+	creator:                      Account!
+	uri:                          String!
+	contract:                     String!
 }

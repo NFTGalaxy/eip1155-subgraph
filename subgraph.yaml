@@ -73,3 +73,25 @@ dataSources:
         - event: CollectionCreated(indexed address,indexed address)
           handler: handleCollectionCreated
       file: ./src/collection.ts
+  - kind: ethereum/contract
+    name: TokenCreated
+    network: mumbai
+    source:
+      abi: Collection
+      startBlock: 13006720
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Collections
+        - CreatedToken
+      abis:
+        - name: Collection
+          file: ./abi/Collection.json
+      eventHandlers:
+        - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
+          handler: handleTransferBatch
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/collection.ts
