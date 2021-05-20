@@ -117,3 +117,34 @@ type LaunchpadSale @entity {
     from:                         String!
     amount:                       BigInt!
 }
+
+type BondlyTransferEvent @entity {
+  id:                            ID!
+  from:                          Bytes! # address
+  to:                            Bytes! # address
+  amount:                        BigInt!
+  contractAddress:               Bytes! #address
+  transactionHash:               Bytes!
+  timestamp:                     BigInt!
+}
+
+type BondlyHolder @entity {
+  id:                            ID!
+  holderAddress:                 Bytes! # address
+  amount:                        BigInt!
+  contractAddress:               Bytes! #address
+}
+
+
+type LatestBlock @entity {
+  id:                           ID!
+  blockNumber:                  BigInt!
+  hash:                         Bytes!
+}
+
+type BondlyHoldersBlock @entity {
+  id:                           ID!
+  blockNumber:                  BigInt!
+  hash:                         Bytes!
+  holders:                      [BondlyHolder]!
+}

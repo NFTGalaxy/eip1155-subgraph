@@ -114,3 +114,28 @@ dataSources:
         - event: PurchaseCard(indexed address,uint256,uint256)
           handler: handlePurchaseCard
       file: ./src/launchpad.ts
+  - kind: ethereum/contract
+    name: Bondly
+    network: mumbai
+    source:
+      address: '0x13089B528D0787fd33fC763f84582F51fdc7E463'
+      abi: Bondly
+      startBlock: 6343844
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: Bondly
+          file: ./abi/Bondly.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      blockHandlers:
+        - handler: handleBlock
+          filter:
+            kind: call
+      file: ./src/bondly.ts
+
