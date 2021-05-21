@@ -111,8 +111,31 @@ dataSources:
         - name: Store
           file: ./abi/Store.json
       eventHandlers:
-        - event: PurchaseCard(indexed address,uint256,uint256)
+        - event: PurchaseCard(indexed address,indexed address,uint256,uint256)
           handler: handlePurchaseCard
+        - event: CardAdded(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleCardAdded
+        - event: CardChanged(uint256)
+          handler: handleCardChanged
+      file: ./src/launchpad.ts
+  - kind: ethereum/contract
+    name: Launchpad
+    network: mumbai
+    source:
+      abi: Launchpad
+      startBlock: 13006720
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - LaunchpadStore
+      abis:
+        - name: Launchpad
+          file: ./abi/Launchpad.json
+      eventHandlers:
+        - event: StoreAdded(indexed address,indexed address)
+          handler: handleStoreAdded
       file: ./src/launchpad.ts
   - kind: ethereum/contract
     name: Bondly

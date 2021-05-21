@@ -113,9 +113,38 @@ type CreatedToken @entity {
 type LaunchpadSale @entity {
     id:                           ID!
 	blockNumber:                  BigInt!
-    cardId:                       BigInt!
+    tokenId:                      BigInt!
+    collection:                   String!
+    buyer:                        String!
+    seller:                       String!
+    amount:                       BigInt!
+}
+
+type LaunchpadStore @entity {
+    id:                           ID!
+	blockNumber:                  BigInt!
+    collection:                   String!
+}
+
+
+type LaunchpadCardAdded @entity {
+    id:                           ID!
+	blockNumber:                  BigInt!
+    tokenId:                      BigInt!
+    collection:                   String!
     from:                         String!
     amount:                       BigInt!
+    basePrice:                    BigInt!
+}
+
+type LaunchpadCardChanged @entity {
+    id:                           ID!
+	blockNumber:                  BigInt!
+    tokenId:                      BigInt!
+    collection:                   String!
+    totalAmount:                  BigInt!
+    currentAmount:                BigInt!
+    basePrice:                    BigInt!
 }
 
 type BondlyTransferEvent @entity {
