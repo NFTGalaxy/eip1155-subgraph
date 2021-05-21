@@ -163,17 +163,3 @@ type BondlyHolder @entity {
   amount:                        BigInt!
   contractAddress:               Bytes! #address
 }
-
-
-type LatestBlock @entity {
-  id:                           ID!
-  blockNumber:                  BigInt!
-  hash:                         Bytes!
-}
-
-type BondlyHoldersBlock @entity {
-  id:                           ID!
-  blockNumber:                  BigInt!
-  hash:                         Bytes!
-  holders:                      [BondlyHolder]!
-}

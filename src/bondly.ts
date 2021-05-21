@@ -2,9 +2,7 @@ import {
     Transfer
 } from "../generated/Bondly/Bondly"
 import {BondlyTransferEvent} from "../generated/schema"
-import {removeEmptyEntity, ZERO, getBondlyHolder, updateBondlyBlock, getLatestBondlyBlock} from './helpers/common'
-import {ethereum} from "@graphprotocol/graph-ts";
-import {BigInt} from "@graphprotocol/graph-ts/index";
+import {removeEmptyEntity, ZERO, getBondlyHolder} from './helpers/common'
 
 
 export function handleTransfer(event: Transfer): void {
@@ -31,15 +29,4 @@ export function handleTransfer(event: Transfer): void {
 
     toToken.amount = toToken.amount.plus(event.params.value);
     toToken.save();
-
-    let block = getLatestBondlyBlock();
-
-    block.holders.push(toToken.id)
-    block.holders.push(fromToken.id)
-}
-
-export function handleBlock(event: ethereum.Block): void {
-    if (event.number.mod(BigInt.fromI32(100)).equals(BigInt.fromI32(0))) {
-        updateBondlyBlock(event);
-    }
 }
