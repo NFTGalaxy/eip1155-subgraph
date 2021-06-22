@@ -156,9 +156,7 @@
     "type": "event"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "DEFAULT_ADMIN_ROLE",
     "outputs": [
       {
@@ -171,9 +169,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "FEE_DIVIDER",
     "outputs": [
       {
@@ -186,9 +182,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "LAUNCHPAD_ADMIN",
     "outputs": [
       {
@@ -201,9 +195,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "TIER_AMOUNT",
     "outputs": [
       {
@@ -234,9 +226,7 @@
       }
     ],
     "name": "addCard",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -273,9 +263,7 @@
       }
     ],
     "name": "cancelCardSale",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -356,16 +344,12 @@
       }
     ],
     "name": "collectFunds",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "collection",
     "outputs": [
       {
@@ -378,9 +362,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "getActiveCards",
     "outputs": [
       {
@@ -461,9 +443,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "getClosedCards",
     "outputs": [
       {
@@ -481,9 +461,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "getCurrentCardId",
     "outputs": [
       {
@@ -571,9 +549,7 @@
       }
     ],
     "name": "grantRole",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -625,16 +601,12 @@
       }
     ],
     "name": "initialize",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "launchpadFee",
     "outputs": [
       {
@@ -647,9 +619,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "limitPerWallet",
     "outputs": [
       {
@@ -681,9 +651,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "paymentToken",
     "outputs": [
       {
@@ -729,9 +697,7 @@
       }
     ],
     "name": "purchaseNFT",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "payable",
     "type": "function"
   },
@@ -798,9 +764,7 @@
       }
     ],
     "name": "renounceRole",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -813,9 +777,7 @@
       }
     ],
     "name": "resumeCardSale",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -833,16 +795,12 @@
       }
     ],
     "name": "revokeRole",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "saleDuration",
     "outputs": [
       {
@@ -855,9 +813,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "salesPerson",
     "outputs": [
       {
@@ -878,9 +834,7 @@
       }
     ],
     "name": "setLaunchpadFee",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -893,9 +847,7 @@
       }
     ],
     "name": "setLimitPerWallet",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -908,9 +860,7 @@
       }
     ],
     "name": "setPaymentToken",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -923,9 +873,7 @@
       }
     ],
     "name": "setSaleDuration",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -938,9 +886,7 @@
       }
     ],
     "name": "setSalesPerson",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -953,9 +899,7 @@
       }
     ],
     "name": "setStartSale",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -968,16 +912,12 @@
       }
     ],
     "name": "setTierSalePeriod",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "startSale",
     "outputs": [
       {
@@ -990,9 +930,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "tierSalePeriod",
     "outputs": [
       {

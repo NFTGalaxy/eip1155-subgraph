@@ -1,12 +1,12 @@
 import {
-    Account, ContractBlockInfo,
+    Account, BurnedToken, ContractBlockInfo,
     CreatedCollection,
     CreatedToken,
     OwnershipTransferred,
     Token,
     TokenRegistry,
     Transaction,
-    Transfer
+    Transfer, TransferToken
 } from "../generated/schema";
 import {ethereum, log} from "@graphprotocol/graph-ts/index";
 
@@ -95,30 +95,56 @@ function registerTransfer(
     : void {
     let token = fetchToken(registry, id)
 
-    if (from.id != constants.ADDRESS_ZERO) {
+    if (to.id == constants.ADDRESS_ZERO) {
+        let id = event.transaction.hash.toHexString()
+            .concat('-')
+            .concat(token.id)
+        let burnedToken = new BurnedToken(id);
+        burnedToken.blockNumber = event.block.number;
+        burnedToken.identifier = token.identifier;
+        burnedToken.user = from.id;
+        burnedToken.contract = event.address.toHexString();
+        burnedToken.value = value;
+        burnedToken.save();
         return
     }
 
-    let collection = CreatedCollection.load(event.address.toHexString());
-    if (collection) {
-        let createdToken = new CreatedToken(token.id);
-        createdToken.blockNumber = event.block.number;
-        createdToken.identifier = token.identifier;
-        createdToken.creator = to.id;
-        let collectionContract = Collection.bind(event.address);
+    if (from.id == constants.ADDRESS_ZERO) {
+        let collection = CreatedCollection.load(event.address.toHexString());
+        if (collection) {
+            let createdToken = new CreatedToken(token.id);
+            createdToken.blockNumber = event.block.number;
+            createdToken.identifier = token.identifier;
+            createdToken.creator = to.id;
+            let collectionContract = Collection.bind(event.address);
 
-        let resultURI = collectionContract.try_uri(token.identifier);
-        log.debug('collection name: {}', [resultURI.value])
+            let resultURI = collectionContract.try_uri(token.identifier);
+            log.debug('collection name: {}', [resultURI.value])
 
-        if (!resultURI.reverted) {
-            createdToken.uri = resultURI.value;
-        } else {
-            createdToken.uri = '';
+            if (!resultURI.reverted) {
+                createdToken.uri = resultURI.value;
+            } else {
+                createdToken.uri = '';
+            }
+
+            createdToken.contract = event.address.toHexString();
+            createdToken.value = value;
+            createdToken.save();
         }
-
-        createdToken.contract = event.address.toHexString();
-        createdToken.value = value;
-        createdToken.save();
+        return;
+    }
+    if (from.id != constants.ADDRESS_ZERO && to.id != constants.ADDRESS_ZERO) {
+        let tokenId = event.transaction.hash.toHexString()
+            .concat('-')
+            .concat(token.id)
+        let transferToken = new TransferToken(tokenId);
+        transferToken.blockNumber = event.block.number;
+        transferToken.identifier = token.identifier;
+        transferToken.from = from.id;
+        transferToken.to = to.id;
+        transferToken.contract = event.address.toHexString();
+        transferToken.value = value;
+        transferToken.save()
     }
 }
 

@@ -86,6 +86,8 @@ dataSources:
       entities:
         - Collections
         - CreatedToken
+        - BurnedToken
+        - TransferToken
       abis:
         - name: Collection
           file: ./abi/Collection.json

@@ -1,8 +1,9 @@
-import {BigInt, Address, ethereum} from '@graphprotocol/graph-ts'
+import {BigInt, Address, ethereum, Bytes} from '@graphprotocol/graph-ts'
 import {store} from "@graphprotocol/graph-ts/index";
 import {BondlyHolder} from "../../generated/schema"
 
 export const BONDLY_ADDRESS = Address.fromHexString("0x13089B528D0787fd33fC763f84582F51fdc7E463");
+export const ZERO_ADDRESS = Address.fromHexString("0x0000000000000000000000000000000000000000");
 
 export const ZERO = BigInt.fromI32(0);
 

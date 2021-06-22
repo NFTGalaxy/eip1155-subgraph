@@ -133,16 +133,16 @@ function registerTransfer(
 
     log.debug('Contract address: {}', [event.address.toHexString()])
 
-    if (!INVALID_CONTRACTS.includes('0xd2d2a84f0eb587f70e181a0c4b252c2c053f80cb')) {
-        if (!token.URI || replaceAll(token.URI, ['&', '"', '\''], "").length === 0) {
-            let contract = IERC1155MetadataURI.bind(event.address);
-            let callResult = contract.try_uri(id);
 
-            if (!callResult.reverted) {
-                token.URI = callResult.value;
-            }
+    if (!token.URI || replaceAll(token.URI, ['&', '"', '\''], "").length === 0) {
+        let contract = IERC1155MetadataURI.bind(event.address);
+        let callResult = contract.try_uri(id);
+
+        if (!callResult.reverted) {
+            token.URI = callResult.value;
         }
     }
+
     let ownershipTransferredId = event.block.number
         .toString()
         .concat('-')

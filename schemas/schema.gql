@@ -110,6 +110,27 @@ type CreatedToken @entity {
 	value:                        BigInt!
 }
 
+type BurnedToken @entity {
+	id:                           ID!
+	blockNumber:                  BigInt!
+	identifier:                   BigInt!
+	user:                         Account!
+	contract:                     String!
+	value:                        BigInt!
+}
+
+type TransferToken @entity {
+	id:                           ID!
+	blockNumber:                  BigInt!
+	identifier:                   BigInt!
+	from:                         Account!
+	to:                           Account!
+	contract:                     String!
+	value:                        BigInt!
+}
+
+
+
 type LaunchpadSale @entity {
     id:                           ID!
 	blockNumber:                  BigInt!
@@ -124,6 +145,14 @@ type LaunchpadStore @entity {
     id:                           ID!
 	blockNumber:                  BigInt!
     collection:                   String!
+    admin:                        Bytes
+    saleDuration:                 BigInt!
+    startSale:                    BigInt!
+    paymentToken:                 Bytes
+    salesPerson:                  Bytes
+    limitPerWallet:               BigInt!
+    tierSalePeriod:               BigInt!
+    launchpadFee:                 BigInt!
 }
 
 

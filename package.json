@@ -18,6 +18,8 @@
     "build:compile": "graph build subgraph.yaml",
     "build:*": "yarn build:schema && yarn build:codegen && yarn build:compile",
     "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraph",
+    "deploy:prod:eth": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/bondly-market-ethereum",
+    "deploy:prod:matic": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/bondly-market-matic",
     "deploy:dev": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraphdev",
     "deploy:hero": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraphhero",
     "deploy:rinkebuy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/Sub1155",

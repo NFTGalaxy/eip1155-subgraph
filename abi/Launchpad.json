@@ -96,9 +96,7 @@
       }
     ],
     "name": "addTrustedSigner",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -122,9 +120,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "owner",
     "outputs": [
       {
@@ -137,9 +133,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "proxyAdmin",
     "outputs": [
       {
@@ -160,20 +154,14 @@
       }
     ],
     "name": "removeTrustedSigner",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "renounceOwnership",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -186,16 +174,12 @@
       }
     ],
     "name": "setStoreImplementation",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "storeImplementation",
     "outputs": [
       {
@@ -227,9 +211,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-
-    ],
+    "inputs": [],
     "name": "storesAnount",
     "outputs": [
       {
@@ -269,9 +251,7 @@
       }
     ],
     "name": "transferOwnership",
-    "outputs": [
-
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   }
