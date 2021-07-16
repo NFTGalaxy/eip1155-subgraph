@@ -1,139 +1,139 @@
 type Account @entity {
-	id:                           ID!
-	balances:                     [Balance!]! @derivedFrom(field: "account")
-	transfersOperator:            [Transfer!]! @derivedFrom(field: "operator")
-	transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
-	transfersTo:                  [Transfer!]! @derivedFrom(field: "to")
-	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
-	approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
+    id:                           ID!
+    balances:                     [Balance!]! @derivedFrom(field: "account")
+    transfersOperator:            [Transfer!]! @derivedFrom(field: "operator")
+    transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
+    transfersTo:                  [Transfer!]! @derivedFrom(field: "to")
+    approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
+    approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
 }
 
 type TokenRegistry @entity {
-	id:                           ID!
-	tokens:                       [Token!]! @derivedFrom(field: "registry")
+    id:                           ID!
+    tokens:                       [Token!]! @derivedFrom(field: "registry")
 }
 
 type Token @entity {
-	id:                           ID!
-	registry:                     TokenRegistry!
-	identifier:                   BigInt!
-	URI:                          String
-	totalSupply:                  BigInt!
-	balances:                     [Balance!]! @derivedFrom(field: "token")
-	transfers:                    [Transfer!]! @derivedFrom(field: "token")
-	approvals:                    [Transfer!]! @derivedFrom(field: "token")
+    id:                           ID!
+    registry:                     TokenRegistry!
+    identifier:                   BigInt!
+    URI:                          String
+    totalSupply:                  BigInt!
+    balances:                     [Balance!]! @derivedFrom(field: "token")
+    transfers:                    [Transfer!]! @derivedFrom(field: "token")
+    approvals:                    [Transfer!]! @derivedFrom(field: "token")
 }
 
 type Balance @entity {
-	id:                           ID!
-	token:                        Token!
-	account:                      Account!
-	value:                        BigInt!
-	transfersFrom:                [Transfer!]! @derivedFrom(field: "fromBalance")
-	transfersTo:                  [Transfer!]! @derivedFrom(field: "toBalance")
+    id:                           ID!
+    token:                        Token!
+    account:                      Account!
+    value:                        BigInt!
+    transfersFrom:                [Transfer!]! @derivedFrom(field: "fromBalance")
+    transfersTo:                  [Transfer!]! @derivedFrom(field: "toBalance")
 }
 
 type Transfer implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	token:                        Token!
-	operator:                     Account!
-	from:                         Account!
-	fromBalance:                  Balance
-	to:                           Account!
-	toBalance:                    Balance
-	value:                        BigInt!
+    id:                           ID!
+    transaction:                  Transaction!
+    timestamp:                    BigInt!
+    token:                        Token!
+    operator:                     Account!
+    from:                         Account!
+    fromBalance:                  Balance
+    to:                           Account!
+    toBalance:                    Balance
+    value:                        BigInt!
 }
 
 type Approval implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	token:                        Token!
-	owner:                        Account!
-	spender:                      Account!
-	value:                        BigInt!
+    id:                           ID!
+    transaction:                  Transaction!
+    timestamp:                    BigInt!
+    token:                        Token!
+    owner:                        Account!
+    spender:                      Account!
+    value:                        BigInt!
 }
 
 type Sell @entity {
-	id:                           ID!
-	contract:                     String!
-	blockNumber:                  BigInt!
-	buyHash:                      String!
-	sellHash:                     String!
-	maker:                        Account!
-	taker:                        Account!
-	price:                        BigInt!
-	metadata:                     String!
-	transaction:                  Transaction!
+    id:                           ID!
+    contract:                     String!
+    blockNumber:                  BigInt!
+    buyHash:                      String!
+    sellHash:                     String!
+    maker:                        Account!
+    taker:                        Account!
+    price:                        BigInt!
+    metadata:                     String!
+    transaction:                  Transaction!
 }
 
 type OwnershipTransferred @entity {
-	id:                           ID!
-	blockNumber:                  BigInt!
-	token:                        Token!
+    id:                           ID!
+    blockNumber:                  BigInt!
+    token:                        Token!
     previousOwner:                Account!
     newOwner:                     Account!
     transaction:                  Transaction!
 }
 
 type ContractInfo @entity {
-	id:                                     ID!
-	latestSaleBlockNumber:                  BigInt!
+    id:                                     ID!
+    latestSaleBlockNumber:                  BigInt!
 }
 
 type ContractBlockInfo @entity {
-	id:                                     ID!
-	latestBlockNumber:                      BigInt!
+    id:                                     ID!
+    latestBlockNumber:                      BigInt!
 }
 
 type CreatedCollection @entity {
-	id:                           ID!
-	contract:                     String!
-	blockNumber:                  BigInt!
-	creator:                      Account!
-	collectionAddress:            String!
-	transaction:                  Transaction!
-	name:                         String!
-	uri:                          String!
+    id:                           ID!
+    contract:                     String!
+    blockNumber:                  BigInt!
+    creator:                      Account!
+    collectionAddress:            String!
+    transaction:                  Transaction!
+    name:                         String!
+    uri:                          String!
 }
 
 
 type CreatedToken @entity {
-	id:                           ID!
-	blockNumber:                  BigInt!
-	identifier:                   BigInt!
-	creator:                      Account!
-	uri:                          String!
-	contract:                     String!
-	value:                        BigInt!
+    id:                           ID!
+    blockNumber:                  BigInt!
+    identifier:                   BigInt!
+    creator:                      Account!
+    uri:                          String!
+    contract:                     String!
+    value:                        BigInt!
 }
 
 type BurnedToken @entity {
-	id:                           ID!
-	blockNumber:                  BigInt!
-	identifier:                   BigInt!
-	user:                         Account!
-	contract:                     String!
-	value:                        BigInt!
+    id:                           ID!
+    blockNumber:                  BigInt!
+    identifier:                   BigInt!
+    user:                         Account!
+    contract:                     String!
+    value:                        BigInt!
 }
 
 type TransferToken @entity {
-	id:                           ID!
-	blockNumber:                  BigInt!
-	identifier:                   BigInt!
-	from:                         Account!
-	to:                           Account!
-	contract:                     String!
-	value:                        BigInt!
+    id:                           ID!
+    blockNumber:                  BigInt!
+    identifier:                   BigInt!
+    from:                         Account!
+    to:                           Account!
+    contract:                     String!
+    value:                        BigInt!
 }
 
 
 
 type LaunchpadSale @entity {
     id:                           ID!
-	blockNumber:                  BigInt!
+    blockNumber:                  BigInt!
     tokenId:                      BigInt!
     collection:                   String!
     buyer:                        String!
@@ -141,24 +141,39 @@ type LaunchpadSale @entity {
     amount:                       BigInt!
 }
 
+type LaunchpadStoreAdmin @entity {
+    id:                          ID!
+    admin:                       Bytes!
+    role:                        String!
+    store:                       Bytes!
+}
+
 type LaunchpadStore @entity {
+    id:                          ID!
+    blockNumber:                 BigInt!
+    collection:                  Bytes
+    admin:                       Bytes
+    saleDuration:                BigInt
+    startSale:                   BigInt
+    paymentToken:                Bytes
+    salesPerson:                 Bytes
+    limitPerWallet:              BigInt
+    tierSalePeriod:              BigInt
+    launchpadFee:                BigInt
+    admins:                      [LaunchpadStoreAdmin!]
+}
+
+type LaunchpadOwner @entity {
     id:                           ID!
-	blockNumber:                  BigInt!
-    collection:                   String!
-    admin:                        Bytes
-    saleDuration:                 BigInt!
-    startSale:                    BigInt!
-    paymentToken:                 Bytes
-    salesPerson:                  Bytes
-    limitPerWallet:               BigInt!
-    tierSalePeriod:               BigInt!
-    launchpadFee:                 BigInt!
+    owner:                        Bytes!
+    prevOwner:                    Bytes!
+    contract:                     Bytes!
 }
 
 
 type LaunchpadCardAdded @entity {
     id:                           ID!
-	blockNumber:                  BigInt!
+    blockNumber:                  BigInt!
     tokenId:                      BigInt!
     collection:                   String!
     from:                         String!
@@ -168,7 +183,7 @@ type LaunchpadCardAdded @entity {
 
 type LaunchpadCardChanged @entity {
     id:                           ID!
-	blockNumber:                  BigInt!
+    blockNumber:                  BigInt!
     tokenId:                      BigInt!
     collection:                   String!
     totalAmount:                  BigInt!
@@ -177,18 +192,18 @@ type LaunchpadCardChanged @entity {
 }
 
 type BondlyTransferEvent @entity {
-  id:                            ID!
-  from:                          Bytes! # address
-  to:                            Bytes! # address
-  amount:                        BigInt!
-  contractAddress:               Bytes! #address
-  transactionHash:               Bytes!
-  timestamp:                     BigInt!
+    id:                            ID!
+    from:                          Bytes! # address
+    to:                            Bytes! # address
+    amount:                        BigInt!
+    contractAddress:               Bytes! #address
+    transactionHash:               Bytes!
+    timestamp:                     BigInt!
 }
 
 type BondlyHolder @entity {
-  id:                            ID!
-  holderAddress:                 Bytes! # address
-  amount:                        BigInt!
-  contractAddress:               Bytes! #address
+    id:                            ID!
+    holderAddress:                 Bytes! # address
+    amount:                        BigInt!
+    contractAddress:               Bytes! #address
 }

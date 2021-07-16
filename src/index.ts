@@ -143,17 +143,17 @@ function registerTransfer(
         }
     }
 
-    let ownershipTransferredId = event.block.number
-        .toString()
-        .concat('-')
-        .concat(token.id)
-    let ownershipTransferred = new OwnershipTransferred(ownershipTransferredId);
-    ownershipTransferred.newOwner = ev.to
-    ownershipTransferred.previousOwner = ev.from
-    ownershipTransferred.blockNumber = event.block.number;
-    ownershipTransferred.token = token.id;
-    ownershipTransferred.transaction = transactions.log(event).id;
-    ownershipTransferred.save();
+    // let ownershipTransferredId = event.block.number
+    //     .toString()
+    //     .concat('-')
+    //     .concat(token.id)
+    // let ownershipTransferred = new OwnershipTransferred(ownershipTransferredId);
+    // ownershipTransferred.newOwner = ev.to
+    // ownershipTransferred.previousOwner = ev.from
+    // ownershipTransferred.blockNumber = event.block.number;
+    // ownershipTransferred.token = token.id;
+    // ownershipTransferred.transaction = transactions.log(event).id;
+    // ownershipTransferred.save();
 
     token.save()
     ev.save()
@@ -215,21 +215,4 @@ export function handleURI(event: URIEvent): void {
     let token = fetchToken(registry, event.params.id)
     token.URI = event.params.value
     token.save()
-}
-
-export function handleApprovalForAll(event: ApprovalForAllEvent): void {
-    let registry = new TokenRegistry(event.address.toHex())
-    registry.save()
-
-    log.debug('Event {} data account {}, approved {}, operator {}', [
-        event.address.toHexString(),
-        event.params.account.toHexString(),
-        event.params.approved ? 'true' : 'false',
-        event.params.operator.toHexString()
-    ])
-
-    // let approval = new Approval(event.address.toHex());
-    // approval.owner = event.params.
-
-    // log.debug('handle ApprovalForAll event {}', [event.address.toHexString()])
 }

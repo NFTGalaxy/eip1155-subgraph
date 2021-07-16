@@ -1,7 +1,21 @@
-import {LaunchpadCardAdded, LaunchpadCardChanged, LaunchpadSale, LaunchpadStore} from "../generated/schema";
-import {CardAdded, CardChanged, PurchaseCard, Store} from "../generated/Store/Store";
-import {StoreAdded} from "../generated/Launchpad/Launchpad";
-import {ZERO} from "./helpers/common";
+import {
+    LaunchpadCardAdded,
+    LaunchpadCardChanged, LaunchpadOwner,
+    LaunchpadSale,
+    LaunchpadStore, LaunchpadStoreAdmin
+} from "../generated/schema";
+import {
+    CardAdded,
+    CardChanged,
+    PurchaseCard,
+    RoleAdminChanged,
+    RoleGranted,
+    RoleRevoked,
+    Store
+} from "../generated/Store/Store";
+import {StoreAdded, OwnershipTransferred} from "../generated/Launchpad/Launchpad";
+import {removeEmptyEntity, ZERO, ZERO_ADDRESS} from "./helpers/common";
+import {log} from '@graphprotocol/graph-ts'
 
 export function handlePurchaseCard(event: PurchaseCard): void {
     let id = event.address.toHexString()
@@ -34,13 +48,10 @@ export function handlePurchaseCard(event: PurchaseCard): void {
 
 
 export function handleStoreAdded(event: StoreAdded): void {
-    let id = event.address.toHexString()
-        .concat('-')
-        .concat(event.params.collection.toHexString());
-    let launchpadStore = new LaunchpadStore(id)
-
+    let launchpadStore = new LaunchpadStore(event.params.store.toHexString())
+    //
     launchpadStore.blockNumber = event.block.number;
-    launchpadStore.collection = event.params.collection.toHexString();
+    launchpadStore.collection = event.params.collection;
 
     let storeContract = Store.bind(event.address)
 
@@ -152,6 +163,70 @@ export function handleCardChanged(event: CardChanged): void {
 
         launchpadCardChanged.save();
     }
+}
 
+
+export function handleOwnershipTransferred(event: OwnershipTransferred): void {
+    let contractId = event.address.toHexString();
+    let owner = LaunchpadOwner.load(contractId);
+
+    if (owner == null) {
+        owner = new LaunchpadOwner(contractId);
+        owner.contract = event.address;
+    }
+
+    owner.owner = event.params.newOwner;
+    owner.prevOwner = event.params.previousOwner;
+    owner.save();
+}
+
+export function handleRoleGranted(event: RoleGranted): void {
+    let id = event.address.toHexString()
+        .concat('-')
+        .concat(event.params.account.toHexString())
+
+    let role = LaunchpadStoreAdmin.load(id)
+
+    if (role == null) {
+        role = new LaunchpadStoreAdmin(id);
+    }
+
+    role.admin = event.params.account;
+
+    let store = LaunchpadStore.load(event.address.toHexString());
+
+    if (store == null) {
+        return
+    }
+
+    role.store = event.address;
+    role.role = event.params.role.toHexString();
+
+    role.save();
+}
+
+export function handleRoleRevoked(event: RoleRevoked): void {
+    let id = event.address.toHexString()
+        .concat('-')
+        .concat(event.params.account.toHexString())
+
+    let role = LaunchpadStoreAdmin.load(id)
+
+    if (role == null) {
+        return;
+    }
+    removeEmptyEntity('LaunchpadStoreAdmins', id);
+}
+
+export function handleRoleAdminChanged(event: RoleAdminChanged): void {
+    // let id = event.address.toHexString()
+    //     .concat('-')
+    //     .concat(event.params..toHexString())
+    //
+    // let role = LaunchpadStoreAdmins.load(id)
+    //
+    // if (role == null) {
+    //     return;
+    // }
 
 }

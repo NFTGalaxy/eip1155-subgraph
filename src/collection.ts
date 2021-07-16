@@ -1,26 +1,27 @@
-import {
-    Account, BurnedToken, ContractBlockInfo,
-    CreatedCollection,
-    CreatedToken,
-    OwnershipTransferred,
-    Token,
-    TokenRegistry,
-    Transaction,
-    Transfer, TransferToken
-} from "../generated/schema";
-import {ethereum, log} from "@graphprotocol/graph-ts/index";
+import {Address, ethereum, log} from "@graphprotocol/graph-ts/index";
 
 import {
     BigInt,
 } from "@graphprotocol/graph-ts";
-import {CollectionCreated, Collections} from "../generated/CollectionFactory/Collections";
+import {CollectionCreated} from "../generated/CollectionFactory/Collections";
+import {
+    Account,
+    BurnedToken,
+    ContractBlockInfo,
+    CreatedCollection, CreatedToken,
+    Token,
+    TokenRegistry,
+    Transaction, TransferToken
+} from "../generated/schema";
 import {Collection} from "../generated/CollectionFactory/Collection";
-import {constants} from "@amxx/graphprotocol-utils/index";
 import {
     TransferBatch as TransferBatchEvent,
     TransferSingle as TransferSingleEvent
-} from "../generated/IERC1155/IERC1155";
-import {IERC1155MetadataURI} from "../generated/IERC1155/IERC1155MetadataURI";
+} from "../generated/CollectionFactory/IERC1155"
+
+import {Collection as CollectionTemplate} from '../generated/templates'
+
+import {constants} from "@amxx/graphprotocol-utils/index";
 
 
 export function handleCollectionCreated(event: CollectionCreated): void {
@@ -37,7 +38,6 @@ export function handleCollectionCreated(event: CollectionCreated): void {
     let collection = Collection.bind(event.params.collectionAddress);
 
     let resultName = collection.try_name();
-    log.debug('collection name: {}', [resultName.value])
 
     if (!resultName.reverted) {
         createdCollection.name = resultName.value;
@@ -46,7 +46,6 @@ export function handleCollectionCreated(event: CollectionCreated): void {
     }
 
     let resultURI = collection.try_uri(new BigInt(0));
-    log.debug('collection name: {}', [resultURI.value])
 
     if (!resultURI.reverted) {
         createdCollection.uri = resultURI.value;
@@ -66,12 +65,12 @@ export function handleCollectionCreated(event: CollectionCreated): void {
     let info = new ContractBlockInfo(event.address.toHexString());
     info.latestBlockNumber = event.block.number;
     info.save();
+
+    CollectionTemplate.create(event.params.collectionAddress);
 }
 
 function fetchToken(registry: TokenRegistry, id: BigInt): Token {
-
     let tokenid = registry.id.concat('-').concat(id.toHex())
-    log.debug('tokenId {}', [tokenid])
 
     let token = Token.load(tokenid)
     if (token == null) {
@@ -93,7 +92,10 @@ function registerTransfer(
     id: BigInt,
     value: BigInt)
     : void {
+
     let token = fetchToken(registry, id)
+
+
 
     if (to.id == constants.ADDRESS_ZERO) {
         let id = event.transaction.hash.toHexString()
@@ -110,27 +112,24 @@ function registerTransfer(
     }
 
     if (from.id == constants.ADDRESS_ZERO) {
-        let collection = CreatedCollection.load(event.address.toHexString());
-        if (collection) {
-            let createdToken = new CreatedToken(token.id);
-            createdToken.blockNumber = event.block.number;
-            createdToken.identifier = token.identifier;
-            createdToken.creator = to.id;
-            let collectionContract = Collection.bind(event.address);
+        let createdToken = new CreatedToken(token.id);
+        createdToken.blockNumber = event.block.number;
+        createdToken.identifier = token.identifier;
+        createdToken.creator = to.id;
+        let collectionContract = Collection.bind(event.address);
 
-            let resultURI = collectionContract.try_uri(token.identifier);
-            log.debug('collection name: {}', [resultURI.value])
+        let resultURI = collectionContract.try_uri(token.identifier);
 
-            if (!resultURI.reverted) {
-                createdToken.uri = resultURI.value;
-            } else {
-                createdToken.uri = '';
-            }
-
-            createdToken.contract = event.address.toHexString();
-            createdToken.value = value;
-            createdToken.save();
+        if (!resultURI.reverted) {
+            createdToken.uri = resultURI.value;
+        } else {
+            createdToken.uri = '';
         }
+
+        createdToken.contract = event.address.toHexString();
+        createdToken.value = value;
+        createdToken.save();
+
         return;
     }
     if (from.id != constants.ADDRESS_ZERO && to.id != constants.ADDRESS_ZERO) {
@@ -172,6 +171,11 @@ export function handleTransferSingle(event: TransferSingleEvent): void {
 }
 
 export function handleTransferBatch(event: TransferBatchEvent): void {
+    let collection = CreatedCollection.load(event.address.toHexString());
+
+    if (collection == null) {
+        return
+    }
     let registry = new TokenRegistry(event.address.toHex())
     let operator = new Account(event.params.operator.toHex())
     let from = new Account(event.params.from.toHex())
