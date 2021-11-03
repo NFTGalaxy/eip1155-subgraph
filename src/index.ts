@@ -1,6 +1,5 @@
 import {
     ethereum,
-    Address,
     BigInt
 } from '@graphprotocol/graph-ts'
 
@@ -10,11 +9,9 @@ import {
     Token,
     Balance,
     Transfer,
-    Approval,
 } from '../generated/schema'
 
 import {
-    IERC1155,
     TransferBatch as TransferBatchEvent,
     TransferSingle as TransferSingleEvent,
     URI as URIEvent,

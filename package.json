@@ -1,5 +1,5 @@
 {
-  "name": "eip1155-subgraph",
+  "name": "eip1155-bsc-subgraph",
   "version": "1.0.0",
   "description": "A subgraph to list them all",
   "author": "Hadrien Croubois (@Amxx)",

@@ -1,15 +1,15 @@
 specVersion: 0.0.2
-description: eip1155-subgraph
-repository: https://github.com/amxx/eip1155-subgraph
+description: eip1155-BSC-subgraph
+repository: https://github.com/NFTGalaxy/eip1155-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: IERC1155
-    network: mainnet
+    network: bsc
     source:
       abi: IERC1155
-      startBlock: 6930510
+      startBlock: 7076550 # alpaca nft core create block 7076556
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
