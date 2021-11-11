@@ -8,8 +8,9 @@ dataSources:
     name: IERC1155
     network: bsc
     source:
+      address: '0x26380e0B0B99Cfd637C429F606f1B36a5Af31f14'
       abi: IERC1155
-      startBlock: 7076550 # alpaca nft core create block 7076556
+      startBlock: 10342141 # alpaca nft core create block 7076556
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
