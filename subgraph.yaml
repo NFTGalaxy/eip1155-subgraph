@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 description: eip1155-BSC-subgraph
-repository: https://github.com/NFTGalaxy/eip1155-subgraph
+repository: https://github.com/NFTGalaxy/bsc-ticket-erc1155
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,9 +8,9 @@ dataSources:
     name: IERC1155
     network: bsc
     source:
-      address: '0x26380e0B0B99Cfd637C429F606f1B36a5Af31f14'
+      address: '0x56535d2273e2eC8c2CdC65f71e3981Bf6301ae8D'
       abi: IERC1155
-      startBlock: 10342141 # alpaca nft core create block 7076556
+      startBlock: 12561999
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
