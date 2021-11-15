@@ -17,7 +17,10 @@
     "build:codegen": "graph codegen subgraph.yaml",
     "build:compile": "graph build subgraph.yaml",
     "build:*": "yarn build:schema && yarn build:codegen && yarn build:compile",
-    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexvorobiov/eip1155subgraph"
+    "create-local": "graph create nftgalaxy/bsc-ticket-erc1155 --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy nftgalaxy/bsc-ticket-erc1155 --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "remove-local": "graph remove nftgalaxy/bsc-ticket-erc1155 --node http://127.0.0.1:8020",
+    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ nftgalaxy/bsc-ticket-erc1155"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^3.3.0"

@@ -98,14 +98,14 @@ function registerTransfer(
         ev.toBalance = balance.id
     }
 
-    if (!token.URI || replaceAll(token.URI, ['&', '"', '\''], "").length === 0) {
-        let contract = IERC1155MetadataURI.bind(event.address);
-        let callResult = contract.try_uri(id);
+    // if (!token.URI || replaceAll(token.URI, ['&', '"', '\''], "").length === 0) {
+    //     let contract = IERC1155MetadataURI.bind(event.address);
+    //     let callResult = contract.try_uri(id);
 
-        if (!callResult.reverted) {
-            token.URI = callResult.value;
-        }
-    }
+    //     if (!callResult.reverted) {
+    //         token.URI = callResult.value;
+    //     }
+    // }
 
     token.save()
     ev.save()
